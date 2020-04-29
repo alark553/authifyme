@@ -1,8 +1,14 @@
 const passport = require('passport')
 const TwitterStrategy = require('passport-twitter').Strategy;
 
+const TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY;
+const TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET;
 
+require('dotenv').load();
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 
 var express = require('express');
 var app = express();
