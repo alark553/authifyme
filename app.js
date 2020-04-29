@@ -28,7 +28,7 @@ app.get('/', function(req, res) {
   res.render('pages/index');
 });
 
-app.listen(8080);
+app.listen(process.argv[2]);
 console.log('8080 is the magic port');
 
 app.get('/auth/twitter', passport.authenticate('twitter'));
