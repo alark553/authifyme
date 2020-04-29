@@ -1,17 +1,19 @@
+var express = require('express');
 const passport = require('passport')
 const TwitterStrategy = require('passport-twitter').Strategy;
+var app = express();
 
-const TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY;
-const TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET;
-
-require('dotenv').load();
 
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').load();
+  require('dotenv').config();
 }
 
-var express = require('express');
-var app = express();
+
+const TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY;
+ console.log("TWITTER_CONSUMER_KEY ", TWITTER_CONSUMER_KEY);
+const TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET;
+ console.log("TWITTER_CONSUMER_SECRET ", TWITTER_CONSUMER_SECRET);
+
 
 passport.use(new TwitterStrategy({
     consumerKey: TWITTER_CONSUMER_KEY,
