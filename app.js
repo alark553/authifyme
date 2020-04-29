@@ -1,8 +1,7 @@
 const passport = require('passport')
 const TwitterStrategy = require('passport-twitter').Strategy;
 
-const TWITTER_CONSUMER_KEY = "mamdfhjhhfjh";
-const TWITTER_CONSUMER_SECRET = "jdshfgjhsdghg";
+
 
 
 var express = require('express');
@@ -28,11 +27,15 @@ app.get('/', function(req, res) {
   res.render('pages/index');
 });
 
-app.listen(process.argv[2]);
+app.get('/profile', function(req, res) {
+  res.render('pages/profile')
+})
+
+app.listen(process.argv[2] || "8080");
 console.log('8080 is the magic port');
 
 app.get('/auth/twitter', passport.authenticate('twitter'));
 
 app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', { successRedirect: '/',
-                                     failureRedirect: '/login' }));
+  passport.authenticate('twitter', { successRedirect: 'https://authifyme.herokuapp.com/profile',
+                                     failureRedirect: 'https://authifyme.herokuapp.com/' }));
