@@ -1,22 +1,28 @@
+var express = require('express');
 const passport = require('passport')
+const session = require('express-session');
 const TwitterStrategy = require('passport-twitter').Strategy;
+var app = express();
+
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 
 const TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY;
 const TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET;
 
-require('dotenv').load();
-
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').load();
-}
-
-var express = require('express');
-var app = express();
+app.use(session({
+  resave: false,
+  saveUninitialized: true,
+  secret: 'bla bla bla' 
+}));
 
 passport.use(new TwitterStrategy({
     consumerKey: TWITTER_CONSUMER_KEY,
     consumerSecret: TWITTER_CONSUMER_SECRET,
-    callbackURL: "http://www.example.com/auth/twitter/callback"
+    callbackURL: "https://authifyme.herokuapp.com/profile"
   },
   function(token, tokenSecret, profile, done) {
     console.log("token, tokenSecret, profile ", token, tokenSecret, profile);
